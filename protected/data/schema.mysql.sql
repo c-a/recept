@@ -1,0 +1,20 @@
+CREATE TABLE tbl_user
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	username VARCHAR(128) NOT NULL,
+	password_hash VARCHAR(160) NOT NULL,
+	salt VARCHAR(128) NOT NULL,
+	email VARCHAR(128) NOT NULL,
+	profile TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE tbl_recipe
+(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    instructions TEXT,
+    prep_time SMALLINT UNSIGNED,
+    cook_time SMALLINT UNSIGNED,
+    owner_id INTEGER
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
