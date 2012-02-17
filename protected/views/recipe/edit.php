@@ -1,9 +1,9 @@
 <?php
-$this->pageTitle = Yii::app()->name . ' - Skapa nytt recept';
-$this->breadcrumbs = array('Skapa nytt recept');
+$this->pageTitle = Yii::app()->name . ' - Redigera recept';
+$this->breadcrumbs = array('Redigera recept');
 ?>
 
-<h1>Skapa nytt recept</h1>
+<h1>Redigera recept</h1>
 
 <div class="form">
 
@@ -17,19 +17,20 @@ $this->breadcrumbs = array('Skapa nytt recept');
             )); ?>
 
     <?php $this->renderPartial('formcontent', array('model'=>$model, 'form'=>$form)); ?>
-    
+
     <div class="row buttons">
         <?php
         $this->widget('zii.widgets.jui.CJuiButton', array(
             'name' => 'submit',
-            'caption' => 'Skapa recept',
+            'caption' => 'Spara ändringar',
         ));
 
         $this->widget('zii.widgets.jui.CJuiButton', array(
             'name' => 'cancel',
             'caption' => 'Avbryt',
             'buttonType'=>'link',
-            'url'=> Yii::app()->user->returnUrl,
+            'url'=>CHtml::normalizeUrl(array('recipe/view',
+                'recipeID'=>$recipeID)),
         ));
         ?>
     </div>
