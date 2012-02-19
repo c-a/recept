@@ -5,15 +5,11 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<div class="recipe-viewall-content">
-
-    <?php
-    $this->widget('zii.widgets.grid.CGridView', array(
-        'dataProvider' => $recipeProvider,
-        'columns' => array('title', 'description'),
-    ));
-    ?>
-
-</div>
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'dataProvider' => $recipeProvider,
+    'columns' => array('title', 'description'),
+));
+?>
 
 

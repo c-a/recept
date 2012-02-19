@@ -1,29 +1,55 @@
 <?php
+
 /**
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends CController
-{
-	/**
-	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
-	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
-	 */
-	public $layout='//layouts/column2';
-	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
-	 */
-	public $menu=array();
+class Controller extends CController {
+
+    /**
+     * @var string the default layout for the controller view. Defaults to '//layouts/column1',
+     * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
+     */
+    public $layout = '//layouts/column2';
+
+    /**
+     * @var array context menu items. This property will be assigned to {@link CMenu::items}.
+     */
+    public $menu = array();
 
     /**
      * @var array of portlets
      */
     public $portlets = array();
 
-	/**
-	 * @var array the breadcrumbs of the current page. The value of this property will
-	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
-	 * for more details on how to specify this property.
-	 */
-	public $breadcrumbs=array();
+    /**
+     * @var array the breadcrumbs of the current page. The value of this property will
+     * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
+     * for more details on how to specify this property.
+     */
+    public $breadcrumbs = array();
+
+    /**
+     * @var string containing the classes to add to the body element.
+     */
+    public $classes;
+    
+    public function init() {
+        $uri = substr(Yii::app()->request->requestUri, strlen(Yii::app()->baseUrl));
+        $components = explode('/', $uri);
+        
+        $class = '';
+        foreach ($components as $component) {
+            if (!empty($component)) {
+                if (!empty($class))
+                    $class .= '-';
+                
+                $class .= $component;
+                $classes[] = $class;
+            }
+        }
+        
+        if (isset($classes))
+            $this->classes = implode($classes, ' ');
+    }
 }

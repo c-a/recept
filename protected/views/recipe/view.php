@@ -5,8 +5,6 @@ $this->breadcrumbs=array(
 );
 ?>
 
-<div class="recipe-view">
-
 <h1><?php echo $recipe->title ?></h1>
 
 <h2><?php echo $recipe->getAttributeLabel('description');?></h2>
@@ -33,5 +31,3 @@ if ($owner)
     ));
 }
 ?>
-
-</div><!-- recipe-view -->

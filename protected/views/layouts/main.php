@@ -18,7 +18,7 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<body>
+<body <?php if (isset($this->classes)) echo "class=\"$this->classes\"";?> >
 
 <div class="container" id="page">
 
@@ -31,7 +31,7 @@
 			'items'=>array(
 				array('label'=>'Hem', 'url'=>array('/site/index')),
 				array('label'=>'Om', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Logga in', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Logga in / Skapa användare', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logga ut ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
