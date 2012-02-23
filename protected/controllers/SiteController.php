@@ -49,7 +49,7 @@ class SiteController extends Controller
   {
     return array(
         array('allow',
-            'actions' => array('index', 'error', 'login'),
+            'actions' => array('index', 'error', 'login', 'page'),
             'users' => array('*'),
             ),
         array('allow',
