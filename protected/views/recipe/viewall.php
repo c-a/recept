@@ -8,7 +8,13 @@ $this->breadcrumbs = array(
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $recipeProvider,
-    'columns' => array('title', 'description'),
+    'columns' => array(
+        array(
+            'class' => 'CLinkColumn',
+            'labelExpression' => '$data->title',
+            'urlExpression' => 'Yii::app()->createUrl("recipe/view", array("id"=>$data->id))',
+        ),
+        'description'),
 ));
 ?>
 

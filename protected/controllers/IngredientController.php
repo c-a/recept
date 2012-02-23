@@ -17,8 +17,12 @@ class IngredientController extends Controller
   {
     return array(
         array('allow',
-            'actions' => array('viewall', 'ajaxsearch'),
+            'actions' => array('ajaxsearch'),
             'users' => array('@'),
+            ),
+        array('allow',
+            'actions' => array('viewall'),
+            'users' => array('*')
             ),
         array('deny'),
     );

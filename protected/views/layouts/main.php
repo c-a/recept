@@ -52,7 +52,6 @@
       <div class="clear"></div>
 
       <div id="footer">
-        <?php echo Yii::powered(); ?>
       </div><!-- footer -->
 
     </div><!-- page -->

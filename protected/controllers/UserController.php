@@ -12,7 +12,12 @@ class UserController extends Controller {
     }
 
     public function accessRules() {
-        return array();
+        return array(
+            array('allow',
+                'actions' => array('create'),
+                'users' => Yii::app()->params->createUserAccess
+                ),
+        );
     }
 
     /**
