@@ -11,6 +11,7 @@ class UserForm extends CFormModel {
     public $email;
     public $password;
     public $password2;
+    public $captcha;
 
     /**
      * Declares the validation rules.
@@ -23,8 +24,8 @@ class UserForm extends CFormModel {
             array('username, email, password, password2', 'required'),
             array('email', 'email'),
             array('password2', 'compare', 'compareAttribute' => 'password', 'message' => 'Lösenord måste repeteras exakt'),
-
             array('username', 'unique', 'className'=>'User'),
+            array('captcha', 'captcha'),
         );
     }
 
@@ -36,7 +37,8 @@ class UserForm extends CFormModel {
             'username' => 'Användarnamn',
             'email' => 'E-post',
             'password' => 'Lösenord',
-            'password2' => 'Repetera lösenord'
+            'password2' => 'Repetera lösenord',
+            'captcha' => 'Verifikationskod',
         );
     }
 

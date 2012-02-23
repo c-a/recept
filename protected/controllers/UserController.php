@@ -14,12 +14,20 @@ class UserController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('create'),
+                'actions' => array('create', 'captcha'),
                 'users' => Yii::app()->params->createUserAccess
                 ),
         );
     }
 
+    public function actions() {
+      return array(
+          'captcha' => array(
+              'class' => 'CCaptchaAction',
+              'backColor' => 0xFFFFFF,
+              ),
+      );
+    }
     /**
      * Displays the create user page
      */

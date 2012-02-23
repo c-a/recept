@@ -52,6 +52,12 @@ $this->breadcrumbs = array(
         <?php echo $form->error($model, 'password2'); ?>
     </div>
 
+    <div class="row">
+      <?php echo $form->labelEx($model, 'captcha'); ?>
+      <?php $this->widget('CCaptcha'); ?>
+      <?php echo $form->textField($model, 'captcha'); ?>
+    </div>
+    
     <div class="row buttons">
         <?php
         $this->widget('zii.widgets.jui.CJuiButton', array(
