@@ -29,8 +29,7 @@ $this->breadcrumbs = array('Redigera recept');
             'name' => 'cancel',
             'caption' => 'Avbryt',
             'buttonType'=>'link',
-            'url'=>CHtml::normalizeUrl(array('recipe/view',
-                'recipeID'=>$recipeID)),
+            'url'=>$this->createUrl('recipe/view', array('id'=>$id)),
         ));
         ?>
     </div>

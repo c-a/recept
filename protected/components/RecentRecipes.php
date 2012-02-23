@@ -29,7 +29,7 @@ class RecentRecipes extends CPortlet
 
     echo '<ul>';
     foreach ($recipes as $recipe) {
-      echo '<li>' . CHtml::link($recipe->title, array('recipe/view', 'recipeID' => $recipe->id)) . '</li>';
+      echo '<li>' . CHtml::link($recipe->title, array('recipe/view', 'id' => $recipe->id)) . '</li>';
     }
     echo '</ul>';
   }

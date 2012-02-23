@@ -7,6 +7,7 @@ class SiteController extends Controller
         $this->menu = array(
             array('label'=>'Skapa nytt recept', 'url'=>array('recipe/create'), 'visible'=>!Yii::app()->user->isGuest),
             array('label'=>'Se alla recept', 'url'=>array('recipe/viewall'), 'visible'=>!Yii::app()->user->isGuest),
+            array('label'=>'Se alla ingredienser', 'url'=>array('ingredient/viewall'), 'visible'=>!Yii::app()->user->isGuest),
         );
 
         $this->portlets[] = array('RecentRecipes');

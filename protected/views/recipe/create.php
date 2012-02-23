@@ -23,6 +23,7 @@ $this->breadcrumbs = array('Skapa nytt recept');
         $this->widget('zii.widgets.jui.CJuiButton', array(
             'name' => 'submit',
             'caption' => 'Skapa recept',
+            'buttonType' => 'submit',
         ));
 
         $this->widget('zii.widgets.jui.CJuiButton', array(

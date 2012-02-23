@@ -67,7 +67,7 @@ class RecipeForm extends CFormModel {
         $this->cook_time_minutes = $recipe->cook_time % 60;
     }
     
-    public function save() {
+    public function save(&$recipeID = null) {
         if (isset($this->recipe))
                 $recipe = $this->recipe;
         else
@@ -80,12 +80,15 @@ class RecipeForm extends CFormModel {
         $recipe->prep_time = $this->prep_time_hours * 60 + $this->prep_time_minutes;
         $recipe->cook_time = $this->cook_time_hours * 60 + $this->cook_time_minutes;
 
-        if (isset($this->recipe))
-                return $recipe->update();
-        else {
-            $recipe->owner_id = Yii::app()->user->id;
-            return $recipe->save();
-        }
+        if ($recipe->isNewRecord)
+          $recipe->owner_id = Yii::app()->user->id;
+        
+        $res = $recipe->save(false);
+        
+        if ($res)
+          $recipeID = $recipe->id;
+        
+        return $res;
     }
 }
 
