@@ -15,7 +15,8 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->createUrl('/js/recipefo
 
 <div class="row">
     <?php echo $form->labelEx($model, 'title'); ?>
-    <?php echo $form->textField($model, 'title', array('size' => 60, 'maxlength' => 128)); ?>
+    <?php echo $form->textField($model, 'title',
+            array('class' => 'title', 'size' => 30, 'maxlength' => 128)); ?>
     <?php echo $form->error($model, 'title'); ?>
 </div>
 

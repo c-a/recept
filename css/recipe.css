@@ -13,3 +13,14 @@ td.recipe-formcontent .add-ingredient-dialog
 {
   border: 1px solid black;
 }
+
+.recipe-view #time-table
+{
+  width: auto;
+}
+
+
+.recipe-view #time-table td
+{
+  padding-left: 0px;
+}
