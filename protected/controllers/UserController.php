@@ -15,8 +15,9 @@ class UserController extends Controller {
         return array(
             array('allow',
                 'actions' => array('create', 'captcha'),
-                'users' => Yii::app()->params->createUserAccess
+                'users' => Yii::app()->params['createUserAccess'],
                 ),
+            array('deny'),
         );
     }
 
