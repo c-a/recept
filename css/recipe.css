@@ -20,7 +20,11 @@ td.recipe-formcontent .add-ingredient-dialog
 }
 
 
-.recipe-view #time-table td
+.recipe-view #info-box
 {
-  padding-left: 0px;
+  background: #fcaf3e;
+  border-radius: 5px;
+  border-color: #a40000;
+  border-style: solid;
+  border-width: 3px;
 }

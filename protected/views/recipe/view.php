@@ -21,39 +21,49 @@ function printTime($hours, $minutes) {
 
 <h1><?php echo $recipe->title ?></h1>
 
-<h2><?php echo $recipe->getAttributeLabel('description');?></h2>
-<p><?php echo $recipe->description ?></p>
+<div class="row">
+  <h2><?php echo $recipe->getAttributeLabel('description');?></h2>
+  <p><?php echo CHtml::encode($recipe->description); ?></p>
+</div>
 
-<h2><?php echo $recipe->getAttributeLabel('instructions');?></h2>
-<p><?php echo $recipe->instructions ?></p>
+<div class="span-11">
+  <div class="row">
+    <h2><?php echo $recipe->getAttributeLabel('instructions');?></h2>
+    <p><?php echo CHtml::encode($recipe->instructions); ?></p>
+  </div>
+</div>
 
-<table id="time-table">
-  <?php if ($recipe->prep_time > 0): ?>
-  <tr>
-    <td><b><?php echo $recipe->getAttributeLabel('prep_time');?>: </b></td>
-    <td>
-      <?php
-      $hours = (int) ($recipe->prep_time / 60);
-      $minutes = (int) ($recipe->prep_time % 60);
-      printTime($hours, $minutes);
-      ?>
-    </td>
-  </tr>
-  <?php endif;?>
-  <?php if ($recipe->cook_time > 0): ?>
-  <tr>
-    <td><b><?php echo $recipe->getAttributeLabel('cook_time');?>: </b></td>
-    <td>
-      <?php
-      $hours = (int) ($recipe->cook_time / 60);
-      $minutes = (int) ($recipe->cook_time % 60);
-      printTime($hours, $minutes);
-      ?>
-    </td>
-  </tr>
-  <?php endif; ?>
-</table>
- 
+<div class="span-6 last">
+  <div id="info-box">
+    <table id="time-table">
+      <?php if ($recipe->prep_time > 0): ?>
+        <tr>
+          <td><b><?php echo $recipe->getAttributeLabel('prep_time'); ?>: </b></td>
+          <td>
+            <?php
+            $hours = (int) ($recipe->prep_time / 60);
+            $minutes = (int) ($recipe->prep_time % 60);
+            printTime($hours, $minutes);
+            ?>
+          </td>
+        </tr>
+      <?php endif; ?>
+      <?php if ($recipe->cook_time > 0): ?>
+        <tr>
+          <td><b><?php echo $recipe->getAttributeLabel('cook_time'); ?>: </b></td>
+          <td>
+            <?php
+            $hours = (int) ($recipe->cook_time / 60);
+            $minutes = (int) ($recipe->cook_time % 60);
+            printTime($hours, $minutes);
+            ?>
+          </td>
+        </tr>
+      <?php endif; ?>
+    </table>
+  </div>
+</div>
+<div class="clear"></div>
 <p><small>Senast ändrad: <?php echo date('D, d M Y', strtotime($recipe->modified_time))?></small></p>
 <?php
 if ($owner)
