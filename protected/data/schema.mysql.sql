@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS tbl_user;
 CREATE TABLE tbl_user
 (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -8,6 +9,7 @@ CREATE TABLE tbl_user
   profile TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+DROP TABLE IF EXISTS tbl_recipe;
 CREATE TABLE tbl_recipe
 (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -21,6 +23,7 @@ CREATE TABLE tbl_recipe
   modified_time TIMESTAMP DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+DROP TABLE IF EXISTS tbl_ingredient;
 CREATE TABLE tbl_ingredient
 (
   id INTEGER NOT NULL PRIMARY KEY,
@@ -33,6 +36,7 @@ CREATE TABLE tbl_ingredient
   description TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+DROP TABLE IF EXISTS tbl_recipe_ingredient;
 CREATE TABLE tbl_recipe_ingredient
 (
   recipe_id INTEGER NOT NULL,
