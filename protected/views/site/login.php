@@ -5,50 +5,32 @@ $this->breadcrumbs = array(
 );
 ?>
 
+
+
+<?php
+$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+            'id' => 'login-form',
+            'type' => 'horizontal',
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'validateOnSubmit' => true,
+            ),
+            'htmlOptions' => array('class' => 'well'),
+        ));
+?>
+
 <h1>Logga in</h1>
 
-<p>Fyll i följande formulär med dina inloggningsuppgifter:</p>
+<p class="note">Fält med <span class="required">*</span> är nödvändiga.</p>
 
-<div class="form">
-    <?php
-    $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'login-form',
-                'enableClientValidation' => true,
-                'clientOptions' => array(
-                    'validateOnSubmit' => true,
-                ),
-            ));
-    ?>
+<?php echo $form->textFieldRow($model, 'username', array('class' => 'span3')); ?>
 
-    <p class="note">Fält med <span class="required">*</span> är nödvändiga.</p>
+<?php echo $form->passwordFieldRow($model, 'password', array('class' => 'span3')); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'username'); ?>
-        <?php echo $form->textField($model, 'username'); ?>
-        <?php echo $form->error($model, 'username'); ?>
-    </div>
+<?php echo $form->checkboxRow($model, 'rememberMe'); ?>
 
-    <div class="row">
-        <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password'); ?>
-        <?php echo $form->error($model, 'password'); ?>
-    </div>
+<button class="btn" type="submit">Logga in</button>
 
-    <div class="row rememberMe">
-        <?php echo $form->checkBox($model, 'rememberMe'); ?>
-        <?php echo $form->label($model, 'rememberMe'); ?>
-        <?php echo $form->error($model, 'rememberMe'); ?>
-    </div>
+<?php $this->endWidget(); ?>
 
-    <div class="row buttons">
-        <?php
-        $this->widget('zii.widgets.jui.CJuiButton', array(
-            'name' => 'submit',
-            'caption' => 'Logga in',
-        )); ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-    </div><!-- form -->
-
-    <p>Har du inte registrerat dig än: <?php echo CHtml::link('Skapa användare', array('user/create')); ?></p>
+<p>Har du inte registrerat dig än: <?php echo CHtml::link('Skapa användare', array('user/create')); ?></p>

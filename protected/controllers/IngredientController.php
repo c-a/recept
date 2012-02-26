@@ -30,7 +30,21 @@ class IngredientController extends Controller
 
   public function actionAjaxSearch()
   {
-    /* TODO: Implement */
+    $criteria = new CDbCriteria(array('select' => array('id', 'name')));
+    if (isset($_GET['searchString']))
+      $criteria->addSearchCondition('name', $_GET['searchString']);
+
+    $ingredientProvider = new CActiveDataProvider('Ingredient', array(
+                'criteria' => $criteria,
+                'sort' => array(
+                    'defaultOrder' => 'name ASC',
+                ),
+                'pagination' => array(
+                    'pageSize' => 10,
+                ),
+            ));
+
+    $this->renderPartial('ajaxsearch', array('ingredientProvider' => $ingredientProvider));
   }
   
   public function actionViewall()

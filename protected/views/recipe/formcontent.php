@@ -1,5 +1,5 @@
 <?php
-Yii::app()->clientScript->registerCoreScript('jquery-ui');
+Yii::app()->clientScript->registerCoreScript('bootstrap.modal');
 Yii::app()->clientScript->registerScript('units-script',
         'var units = ' . CJSON::encode(RecipeIngredient::getUnits()) . '; ' .
         'var baseurl = ' . CJavaScript::encode(Yii::app()->baseUrl) . ';',
@@ -13,85 +13,43 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->createUrl('/js/recipefo
 
 <?php echo $form->errorSummary($model); ?>
 
-<div class="row">
-    <?php echo $form->labelEx($model, 'title'); ?>
-    <?php echo $form->textField($model, 'title',
-            array('class' => 'title', 'size' => 30, 'maxlength' => 128)); ?>
-    <?php echo $form->error($model, 'title'); ?>
-</div>
+<?php echo $form->textFieldRow($model, 'title', array('class' => 'span3', 'maxlength' => 128));?>
 
-<div class="row">
-    <?php echo $form->labelEx($model, 'description'); ?>
-    <?php echo $form->textArea($model, 'description', array('rows' => 6, 'cols' => 59)); ?>
-    <?php echo $form->error($model, 'description'); ?>
-</div>
+<?php echo $form->textAreaRow($model, 'description', array('class' => 'span5', 'rows'=>6));?>
 
-<div class="row">
-    <?php echo $form->labelEx($model, 'instructions'); ?>
-    <?php echo $form->textArea($model, 'instructions', array('rows' => 6, 'cols' => 59)); ?>
-    <?php echo $form->error($model, 'instructions'); ?>
-</div>
+<?php echo $form->textAreaRow($model, 'instructions', array('class' => 'span5', 'rows'=>6));?>
 
-<div class="row">
-    <?php echo CHtml::label('Förberedelsetid', false, array('required' => true)); ?>
-
-    <?php
-    echo $form->textField($model, 'prep_time_hours', (array('size'=>2, 'maxlength'=>2)));
-    ?>
+<div class="control-group">
+  <?php echo CHtml::label('Förberedelsetid', false, array('required' => true, 'class'=> 'control-label')); ?>
+  <div class="controls">
+    <?php echo $form->textField($model, 'prep_time_hours', (array('class'=>'span1', 'maxlength'=>2)));?>
     timmar och
-    <?php
-    echo $form->textField($model, 'prep_time_minutes', (array('size'=>2, 'maxlength'=>2)));
-    ?>
+    <?php echo $form->textField($model, 'prep_time_minutes', (array('class'=>'span1', 'maxlength'=>2)));?>
     minuter
+  </div>
 </div>
 
-<div class="row">
-    <?php echo CHtml::label('Tillagningstid', false, array('required' => true)); ?>
-
-    <?php
-    echo $form->textField($model, 'cook_time_hours', (array('size'=>2, 'maxlength'=>2)));
-    ?>
+<div class="control-group">
+  <?php echo CHtml::label('Tillagningstid', false, array('required' => true, 'class'=> 'control-label')); ?>
+  <div class="controls">
+    <?php echo $form->textField($model, 'cook_time_hours', (array('class'=>'span1', 'maxlength'=>2)));?>
     timmar och
-    <?php
-    echo $form->textField($model, 'cook_time_minutes', (array('size'=>2, 'maxlength'=>2)));
-    ?>
+    <?php echo $form->textField($model, 'cook_time_minutes', (array('class'=>'span1', 'maxlength'=>2)));?>
     minuter
+  </div>
 </div>
 
-<div class="row">
-  <?php echo CHtml::label('Ingredienser', false);?>
-  
-  <table id="ingredients-table">
-    <th>Ingrediens</th>
-    <th>Mängd</th>
-    <th>Enhet</th>
-  </table>
-  <?php $this->widget('zii.widgets.jui.CJuiButton', array(
-            'name' => 'add-ingredient',
-            'caption' => 'Lägg till ingrediens',
-            'buttonType' => 'button',
-     ));
-  ?>
-</div>
-
-<div id="add-ingredient-dialog" style="display:none">
-  <table>
-    <tr>
-      <td><label for="ingredient">Ingrediens: </label></td>
-      <td><input type="text" name="ingredient"</label></td>
-    </tr>
-    
-    <tr>
-      <td><label for="amount">Mängd: </label></td>
-      <td><input type="text" name="amount"</label></td>
-      <td>
-        <?php
-          echo CHtml::dropDownList('unit', 'test',
-                  CHtml::listData(RecipeIngredient::getUnits(), 'abbr', 'label'));
-        ?>
-      </td>
-    </tr>
-  </table>
+<div class="control-group">
+  <?php echo CHtml::label('Ingredienser', false, array('class' => 'control-label')); ?>
+  <div class="controls">
+  <table id="ingredients-table" class="table table-striped table-bordered">
+      <th>Ingrediens</th>
+      <th>Mängd</th>
+      <th>Enhet</th>
+      <th>Kommentar</th>
+    </table>
+    <p><?php echo CHtml::link('Lägg till ingrediens','#ingredient-modal', array('class'=>'btn btn-primary', 'data-toggle'=>'modal')); ?></p>
+  </div>
 </div>
 
 </div><!-- recipe-formcontent -->

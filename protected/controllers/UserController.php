@@ -33,7 +33,7 @@ class UserController extends Controller {
      * Displays the create user page
      */
     public function actionCreate() {
-        $model = new UserForm('create');
+        $model = new UserForm;
 
         // if it is ajax validation request
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'create-form') {

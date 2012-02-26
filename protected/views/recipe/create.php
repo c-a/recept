@@ -3,38 +3,28 @@ $this->pageTitle = Yii::app()->name . ' - Skapa nytt recept';
 $this->breadcrumbs = array('Skapa nytt recept');
 ?>
 
+<?php
+$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+            'id' => 'recipe-create-form',
+            'type' => 'horizontal',
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'validateOnSubmit' => true,
+            ),
+            'htmlOptions' => array('class' => 'well'),
+        ));
+?>
+
 <h1>Skapa nytt recept</h1>
 
-<div class="form">
+<?php $this->renderPartial('formcontent', array('model' => $model, 'form' => $form)); ?>
+
+ <button class="btn btn-primary" type="submit">Skapa recept</button>
 
 <?php
-    $form = $this->beginWidget('CActiveForm', array(
-                'id' => 'recipe-create-form',
-                'enableClientValidation' => true,
-                'clientOptions' => array(
-                    'validateOnSubmit' => true,
-                ),
-            )); ?>
+ echo CHtml::link('Avbryt',  Yii::app()->user->returnUrl, array('class' => 'btn'));
+?>
 
-    <?php $this->renderPartial('formcontent', array('model'=>$model, 'form'=>$form)); ?>
-    
-    <div class="row buttons">
-        <?php
-        $this->widget('zii.widgets.jui.CJuiButton', array(
-            'name' => 'submit',
-            'caption' => 'Skapa recept',
-            'buttonType' => 'submit',
-        ));
+<?php $this->endWidget(); ?>
 
-        $this->widget('zii.widgets.jui.CJuiButton', array(
-            'name' => 'cancel',
-            'caption' => 'Avbryt',
-            'buttonType'=>'link',
-            'url'=> Yii::app()->user->returnUrl,
-        ));
-        ?>
-    </div>
-
-    <?php $this->endWidget(); ?>
-
-</div><!-- form -->
+ <?php $this->renderPartial('ingredientmodal'); ?>

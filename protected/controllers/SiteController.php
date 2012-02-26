@@ -6,6 +6,7 @@ class SiteController extends Controller
   function init()
   {
     $this->menu = array(
+        array('label' => 'Aktiviteter', 'itemOptions'=>array('class'=>'nav-header')),
         array('label' => 'Skapa nytt recept', 'url' => array('recipe/create'), 'visible' => !Yii::app()->user->isGuest),
         array('label' => 'Se alla recept', 'url' => array('recipe/viewall')),
         array('label' => 'Se alla ingredienser', 'url' => array('ingredient/viewall')),
@@ -22,11 +23,6 @@ class SiteController extends Controller
   public function actions()
   {
     return array(
-        // captcha action renders the CAPTCHA image displayed on the contact page
-        'captcha' => array(
-            'class' => 'CCaptchaAction',
-            'backColor' => 0xFFFFFF,
-        ),
         // page action renders "static" pages stored under 'protected/views/site/pages'
         // They can be accessed via: index.php?r=site/page&view=FileName
         'page' => array(

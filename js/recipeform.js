@@ -17,16 +17,19 @@ IngredientsList.prototype = {
   {
     var id = ++this._nIngredients;
     
-    var text = '<tr class="ingredient-' + id + '"><td>' + name + '</td>';
-    text += '<td><input type="text" name="RecipeForm[ingredient][' + id + '][name] size="3" value="' + amount + '"/></td>';
+    var text = '<tr class="ingredient-' + id + '">';
+      
+    text += '<td><div class="span2" style="word-wrap:break-word;">' + name + '</div></td>';
+    text += '<td><input type="text" name="RecipeForm[ingredient][' + id + '][amount]" class="span1" value="' + amount + '"/></td>';
     
-    text += '<td><select value="' + unit + '">';
+    text += '<td><select class="span2" value="' + unit + '">';
     for (var unit in units) {
       text += '<option>' + units[unit].label + '</option>';
     }
     text += '</select></td>'
-    
-    text += '<td class="remove-button"><img src="' + baseurl + '/images/list-remove.png" height="32" width="32" /></td>';
+
+    text += '<td><input type="text" name="RecipeForm[ingredient][' + id + '][comment]" </td>';
+    text += '<td class="remove-button"><i class="icon-remove"/></i></td>';
     text += '</tr>'
     
     this.$list.append(text);
@@ -38,28 +41,9 @@ IngredientsList.prototype = {
 jQuery(function($) {
 
   var list = new IngredientsList($('#ingredients-table'));
-  
-  $('#add-ingredient-dialog').dialog({
-    autoOpen: false,
-    title: "Lägg till ingrediens",
-    width:  'auto',
-    buttons: {
-      'Lägg till': function() {
-        
-        list.addIngredient($('input[name="ingredient"]').val(),
+
+  $('#ingredient-modal-add').click(function() {
+    list.addIngredient($('input[name="ingredient"]').val(),
           $('input[name="amount"]').val(), $('input[name="unit"]').val());
-        $(this).dialog('close');
-        return true;
-      },
-      'Avbryt': function() {
-        $(this).dialog('close');
-        return false;
-      }
-    }
   });
-  
-  $('#add-ingredient').click(function() {
-    $('#add-ingredient-dialog').dialog('open');
-  });
-    
 });

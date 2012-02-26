@@ -1,17 +1,16 @@
+div.recipe-formcontent
+{
+  margin-bottom: 40px;
+}
+
+.recipe-formcontent .remove-button
+{
+  vertical-align: middle;
+}
+
 .recipe-formcontent .remove-button:hover
 {
   cursor:pointer;
-}
-
-table.recipe-formcontent .add-ingredient-dialog
-{
-  border-collapse: collapse;
-}
-
-table.recipe-formcontent .add-ingredient-dialog,
-td.recipe-formcontent .add-ingredient-dialog
-{
-  border: 1px solid black;
 }
 
 .recipe-view #time-table

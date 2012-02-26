@@ -5,3 +5,7 @@ nbproject
 
 # Ignore backup files #
 *~
+
+# bootstrap files #
+.hg*
+/protected/extensions/bootstrap/demo

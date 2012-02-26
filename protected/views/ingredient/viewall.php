@@ -6,7 +6,7 @@ $this->breadcrumbs = array(
 ?>
 
 <?php
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.BootGridView', array(
     'dataProvider' => $ingredientProvider,
     'columns' => array('name', 'kcal', 'protein', 'fat', 'carbs', 'fiber'),
 ));

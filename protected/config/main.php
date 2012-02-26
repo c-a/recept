@@ -17,6 +17,10 @@ return array(
         'application.models.*',
         'application.components.*',
     ),
+
+    'preload' => array(
+        'bootstrap',
+    ),
     
     'modules' => array(
         'gii'=>array(
@@ -60,6 +64,9 @@ return array(
               ),
              */
             ),
+        ),
+        'bootstrap' => array(
+            'class' => 'ext.bootstrap.components.Bootstrap'
         ),
     ),
     // application-level parameters that can be accessed

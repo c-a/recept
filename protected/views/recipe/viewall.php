@@ -6,15 +6,16 @@ $this->breadcrumbs = array(
 ?>
 
 <?php
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('bootstrap.widgets.BootGridView', array(
     'dataProvider' => $recipeProvider,
     'columns' => array(
         array(
             'class' => 'CLinkColumn',
+            'header' => 'Namn',
             'labelExpression' => '$data->title',
             'urlExpression' => 'Yii::app()->createUrl("recipe/view", array("id"=>$data->id))',
         ),
-        'description'),
+       'description'),
 ));
 ?>
 

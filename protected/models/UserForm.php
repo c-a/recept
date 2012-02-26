@@ -21,11 +21,11 @@ class UserForm extends CFormModel {
     public function rules() {
         return array(
             // all fields are required.
-            array('username, email, password, password2', 'required'),
+            array('username, email, password, password2, captcha', 'required'),
             array('email', 'email'),
             array('password2', 'compare', 'compareAttribute' => 'password', 'message' => 'Lösenord måste repeteras exakt'),
             array('username', 'unique', 'className'=>'User'),
-            array('captcha', 'captcha'),
+            //array('captcha', 'captcha'),
         );
     }
 

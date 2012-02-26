@@ -4,15 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="language" content="en" />
 
-    <!-- blueprint CSS framework -->
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-    <![endif]-->
-
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/site.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/recipe.css" />
 
@@ -24,34 +16,40 @@
     <div class="container" id="page">
 
       <div id="header">
-        <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+        <div id="logo"><p></p></div>
       </div><!-- header -->
 
-      <div id="mainmenu">
         <?php
-        $this->widget('zii.widgets.CMenu', array(
+        $this->widget('bootstrap.widgets.BootNavbar', array(
+            'fixed' => false,
+            'brand' => CHtml::encode(Yii::app()->name),
+            'brandUrl' => $this->createUrl('/site/index'),
+            'collapse' => false, // requires bootstrap-responsive.css
             'items' => array(
-                array('label' => 'Hem', 'url' => array('/site/index')),
-                array('label' => 'Om', 'url' => array('/site/page', 'view' => 'about')),
-                array('label' => 'Logga in / Skapa användare', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                array('label' => 'Logga ut (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                array(
+                    'class' => 'bootstrap.widgets.BootMenu',
+                    'items' => array(
+                        array('label' => 'Hem', 'url' => array('/site/index')),
+                        array('label' => 'Om', 'url' => array('/site/page', 'view' => 'about')),
+                        array('label' => 'Logga in / Skapa användare', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                        array('label' => 'Logga ut (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                    ),
+                ),
             ),
         ));
         ?>
-      </div><!-- mainmenu -->
-      <?php if (isset($this->breadcrumbs)): ?>
+      <?php if (!empty($this->breadcrumbs)): ?>
         <?php
-        $this->widget('zii.widgets.CBreadcrumbs', array(
+        $this->widget('bootstrap.widgets.BootCrumb', array(
+            'homeLink' =>array('label' => 'Hem', 'url' => $this->createUrl('/site/index')),
             'links' => $this->breadcrumbs,
         ));
         ?><!-- breadcrumbs -->
       <?php endif ?>
 
-        <?php echo $content; ?>
+      <?php echo $content; ?>
 
-      <div class="clear"></div>
-
-      <div id="footer">
+      <div class="footer">
       </div><!-- footer -->
 
     </div><!-- page -->
