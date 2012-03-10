@@ -10,7 +10,6 @@
 /**
  * Bootstrap input widget.
  * Used for rendering inputs according to Bootstrap standards.
- * @todo Implement BootInputInline and BootInputVertical. http://twitter.github.com/bootstrap/base-css.html#forms
  */
 abstract class BootInput extends CInputWidget
 {
@@ -50,6 +49,7 @@ abstract class BootInput extends CInputWidget
 
 	/**
 	 * Initializes the widget.
+	 * @throws CException if the widget could not be initialized.
 	 */
 	public function init()
 	{
@@ -65,12 +65,10 @@ abstract class BootInput extends CInputWidget
 
 	/**
 	 * Runs the widget.
+	 * @throws CException if the widget type is invalid.
 	 */
 	public function run()
 	{
-		$errorCss = $this->model->hasErrors($this->attribute) ? ' '.CHtml::$errorCss : '';
-		echo CHtml::openTag('div', array('class'=>'control-group'.$errorCss));
-
 		switch ($this->type)
 		{
 			case self::TYPE_CHECKBOX:
@@ -122,18 +120,22 @@ abstract class BootInput extends CInputWidget
 				break;
 
 			case self::TYPE_UNEDITABLE:
+				$cssClass = 'uneditable-input';
+				if (isset($this->htmlOptions['class']))
+					$this->htmlOptions['class'] .= ' '.$cssClass;
+				else
+					$this->htmlOptions['class'] = $cssClass;
+
 				$this->uneditableField();
 				break;
 
 			default:
 				throw new CException(__CLASS__.': Failed to run widget! Type is invalid.');
 		}
-
-		echo '</div>';
 	}
 
 	/**
-	 * Returns the error text for this block.
+	 * Returns the error text for the input.
 	 * @param array $htmlOptions additional HTML attributes
 	 * @return string the error text
 	 */
@@ -143,7 +145,19 @@ abstract class BootInput extends CInputWidget
 	}
 
 	/**
-	 * Returns the hint text for this block.
+	 * Returns the container CSS class for the input.
+	 * @return string the CSS class.
+	 */
+	protected function getContainerCssClass()
+	{
+		if ($this->model->hasErrors($this->attribute))
+			return CHtml::$errorCss;
+		else
+			return '';
+	}
+
+	/**
+	 * Returns the hint text for the input.
 	 * @return string the hint text
 	 */
 	protected function getHint()
@@ -159,7 +173,7 @@ abstract class BootInput extends CInputWidget
 	}
 
 	/**
-	 * Returns the label for this block.
+	 * Returns the label for the input.
 	 * @param array $htmlOptions additional HTML attributes
 	 * @return string the label
 	 */

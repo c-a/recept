@@ -14,12 +14,13 @@ Yii::import('bootstrap.widgets.input.BootInput');
  */
 class BootActiveForm extends CActiveForm
 {
-	// The different form types.
+	// Form types.
 	const TYPE_VERTICAL = 'vertical';
 	const TYPE_INLINE = 'inline';
 	const TYPE_HORIZONTAL = 'horizontal';
 	const TYPE_SEARCH = 'search';
 
+	// Input classes.
 	const INPUT_HORIZONTAL = 'bootstrap.widgets.input.BootInputHorizontal';
 	const INPUT_INLINE = 'bootstrap.widgets.input.BootInputInline';
 	const INPUT_SEARCH = 'bootstrap.widgets.input.BootInputSearch';
@@ -195,13 +196,14 @@ class BootActiveForm extends CActiveForm
 	 * Renders a captcha row.
 	 * @param CModel $model the data model
 	 * @param string $attribute the attribute
+	 * @param array $captchaOptions the captcha options
 	 * @param array $htmlOptions additional HTML attributes
 	 * @return string the generated row
 	 * @since 0.9.3
 	 */
-	public function captchaRow($model, $attribute, $htmlOptions = array())
+	public function captchaRow($model, $attribute, $captchaOptions = array(), $htmlOptions = array())
 	{
-		return $this->inputRow(BootInput::TYPE_CAPTCHA, $model, $attribute, null, $htmlOptions);
+		return $this->inputRow(BootInput::TYPE_CAPTCHA, $model, $attribute, $captchaOptions, $htmlOptions);
 	}
 
 	/**

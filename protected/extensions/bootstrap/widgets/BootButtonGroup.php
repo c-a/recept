@@ -11,18 +11,46 @@
 Yii::import('bootstrap.widgets.BootButton');
 Yii::import('bootstrap.widgets.BootWidget');
 
+/**
+ * Bootstrap button group widget.
+ */
 class BootButtonGroup extends BootWidget
 {
+	// Toggle options.
 	const TOGGLE_CHECKBOX = 'checkbox';
 	const TOGGLE_RADIO = 'radio';
 
-	public $tag = BootButton::TAG_LINK;
+	/**
+	 * @var string the button function.
+	 * @see BootButton::fn
+	 */
+	public $fn = BootButton::FN_LINK;
+	/**
+	 * @var string the button type.
+	 * @see BootButton::type
+	 */
 	public $type = BootButton::TYPE_NORMAL;
+	/**
+	 * @var string the button size.
+	 * @see BootButton::size
+	 */
 	public $size = BootButton::SIZE_NORMAL;
+	/**
+	 * @var boolean indicates whether to encode the button labels.
+	 */
 	public $encodeLabel = true;
+	/**
+	 * @var array the button configuration.
+	 */
 	public $buttons = array();
+	/**
+	 * @var boolean indicates whether to enable button toggling.
+	 */
 	public $toggle;
 
+	/**
+	 * Initializes the widget.
+	 */
 	public function init()
 	{
 		$cssClass = 'btn-group';
@@ -40,6 +68,9 @@ class BootButtonGroup extends BootWidget
 		}
 	}
 
+	/**
+	 * Runs the widget.
+	 */
 	public function run()
 	{
 		echo CHtml::openTag('div', $this->htmlOptions);
@@ -47,13 +78,15 @@ class BootButtonGroup extends BootWidget
 		foreach ($this->buttons as $button)
 		{
 			$this->controller->widget('bootstrap.widgets.BootButton', array(
-				'tag'=>isset($button['tag']) ? $button['tag'] : $this->tag,
-				'type'=>$this->type,
+				'fn'=>isset($button['fn']) ? $button['fn'] : $this->fn,
+				'type'=>isset($button['type']) ? $button['type'] : $this->type,
 				'size'=>$this->size,
 				'icon'=>isset($button['icon']) ? $button['icon'] : null,
 				'label'=>isset($button['label']) ? $button['label'] : null,
 				'url'=>isset($button['url']) ? $button['url'] : null,
+				'active'=>isset($button['active']) ? $button['active'] : false,
 				'items'=>isset($button['items']) ? $button['items'] : array(),
+				'ajaxOptions'=>isset($button['ajaxOptions']) ? $button['ajaxOptions'] : array(),
 				'htmlOptions'=>isset($button['htmlOptions']) ? $button['htmlOptions'] : array(),
 				'encodeLabel'=>isset($button['encodeLabel']) ? $button['encodeLabel'] : $this->encodeLabel,
 			));

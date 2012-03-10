@@ -7,17 +7,16 @@
  * @package bootstrap.widgets
  */
 
-Yii::import('bootstrap.widgets.BootWidget');
+Yii::import('bootstrap.widgets.BootBaseMenu');
 
 /**
  * Bootstrap menu widget.
  * Used for rendering of bootstrap menus with support dropdown sub-menus and scroll-spying.
  * @since 0.9.8
- * @todo Fix scrollspy.
  */
-class BootMenu extends BootWidget
+class BootMenu extends BootBaseMenu
 {
-	// The different menu types.
+	// Menu types.
 	const TYPE_UNSTYLED = '';
 	const TYPE_TABS = 'tabs';
 	const TYPE_PILLS = 'pills';
@@ -36,18 +35,6 @@ class BootMenu extends BootWidget
 	 * @var array the scroll-spy configuration.
 	 */
 	public $scrollspy;
-	/**
-	 * @var array the menu items.
-	 */
-	public $items = array();
-	/**
-	 * @var string the item template.
-	 */
-	public $itemTemplate;
-	/**
-	 * @var boolean whether to encode item labels.
-	 */
-	public $encodeLabel = true;
 	/**
 	 * @var array the HTML options for dropdown menus.
 	 */
@@ -79,33 +66,22 @@ class BootMenu extends BootWidget
 
 		if (isset($this->scrollspy) && is_array($this->scrollspy) && isset($this->scrollspy['spy']))
 		{
-			Yii::app()->bootstrap->registerScrollSpy();
-
 			if (!isset($this->scrollspy['subject']))
 				$this->scrollspy['subject'] = 'body';
 
 			if (!isset($this->scrollspy['offset']))
 				$this->scrollspy['offset'] = null;
 
+			Yii::app()->bootstrap->registerScrollSpy();
 			Yii::app()->bootstrap->spyOn($this->scrollspy['subject'], $this->scrollspy['spy'], $this->scrollspy['offset']);
 		}
-	}
-
-	/**
-	 * Runs the widget.
-	 */
-	public function run()
-	{
-		echo CHtml::openTag('ul', $this->htmlOptions);
-		$this->renderItems($this->items);
-		echo '</ul>';
 	}
 
 	/**
 	 * Renders the items in this menu.
 	 * @param array $items the menu items
 	 */
-	protected function renderItems($items)
+	public function renderItems($items)
 	{
 		foreach ($items as $item)
 		{
@@ -118,11 +94,14 @@ class BootMenu extends BootWidget
 
 				$class = array();
 
-				if (isset($item['header']))
-					$class[] = 'nav-header';
-
 				if ($item['active'] || (isset($item['items']) && $this->isChildActive($item['items'])))
 					$class[] = 'active';
+
+				if ($this->type === self::TYPE_LIST && !isset($item['url']))
+				{
+					$item['header'] = true;
+					$class[] = 'nav-header';
+				}
 
 				if (isset($item['items']))
 					$class[] = 'dropdown';
@@ -148,7 +127,7 @@ class BootMenu extends BootWidget
 				{
 					$this->controller->widget('bootstrap.widgets.BootDropdown', array(
 						'items'=>$item['items'],
-						'htmlOptions'=>isset($this->dropdownOptions) ? $this->dropdownOptions : array(),
+						'htmlOptions'=>isset($item['dropdownOptions']) ? $item['dropdownOptions'] : $this->dropdownOptions,
 					));
 				}
 
@@ -158,7 +137,7 @@ class BootMenu extends BootWidget
 	}
 
 	/**
-	 * Renders a single item in the dropdown.
+	 * Renders a single item in the menu.
 	 * @param array $item the item configuration
 	 * @return string the rendered item
 	 */
@@ -167,18 +146,7 @@ class BootMenu extends BootWidget
 		if (!isset($item['linkOptions']))
 			$item['linkOptions'] = array();
 
-		if (isset($item['icon']))
-		{
-			if (strpos($item['icon'], 'icon') === false)
-			{
-				$pieces = explode(' ', $item['icon']);
-                $item['icon'] = 'icon-'.implode(' icon-', $pieces);
-			}
-
-			$item['label'] = '<i class="'.$item['icon'].'"></i> '.$item['label'];
-		}
-
-		if (isset($item['items']))
+		if (isset($item['items']) && !empty($item['items']))
 		{
 			if (isset($item['linkOptions']['class']))
 				$item['linkOptions']['class'] .= ' dropdown-toggle';
@@ -189,13 +157,7 @@ class BootMenu extends BootWidget
 			$item['label'] .= ' <span class="caret"></span>';
 		}
 
-		if (!isset($item['header']) && !isset($item['url']))
-			$item['url'] = '#';
-
-		if (isset($item['url']))
-			return CHtml::link($item['label'], $item['url'], $item['linkOptions']);
-		else
-			return $item['label'];
+		return parent::renderItem($item);
 	}
 
 	/**
@@ -249,27 +211,6 @@ class BootMenu extends BootWidget
 		foreach ($items as $item)
 			if (isset($item['active']) && $item['active'] === true)
 				return true;
-
-		return false;
-	}
-
-	/**
-	 * Checks whether a menu item is active.
-	 * @param array $item the menu item to be checked
-	 * @param string $route the route of the current request
-	 * @return boolean the result
-	 */
-	protected function isItemActive($item, $route)
-	{
-		if (isset($item['url']) && is_array($item['url']) && !strcasecmp(trim($item['url'][0], '/'), $route))
-		{
-			if (count($item['url']) > 1)
-				foreach (array_splice($item['url'], 1) as $name=>$value)
-					if (!isset($_GET[$name]) || $_GET[$name] != $value)
-						return false;
-
-			return true;
-		}
 
 		return false;
 	}

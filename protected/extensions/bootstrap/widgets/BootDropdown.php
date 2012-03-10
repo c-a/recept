@@ -8,9 +8,12 @@
  * @since 0.9.10
  */
 
-Yii::import('bootstrap.widgets.BootMenu');
+Yii::import('bootstrap.widgets.BootBaseMenu');
 
-class BootDropdown extends BootMenu
+/**
+ * Bootstrap dropdown menu widget.
+ */
+class BootDropdown extends BootBaseMenu
 {
 	/**
 	 * Initializes the widget.
@@ -33,7 +36,7 @@ class BootDropdown extends BootMenu
 	 * Renders the items in this menu.
 	 * @param array $items the menu items
 	 */
-	protected function renderItems($items)
+	public function renderItems($items)
 	{
 		foreach ($items as $item)
 		{
@@ -45,8 +48,14 @@ class BootDropdown extends BootMenu
 					$item['itemOptions'] = array();
 
 				$class = array();
-				if (isset($item['header']))
+				if (!isset($item['url']))
+				{
+					$item['header'] = true;
 					$class[] = 'nav-header';
+				}
+
+				if ($item['active'])
+					$class[] = 'active';
 
 				$cssClass = implode(' ', $class);
 				if(isset($item['itemOptions']['class']))
@@ -95,6 +104,9 @@ class BootDropdown extends BootMenu
 			if (($this->encodeLabel && !isset($item['encodeLabel']))
 					|| (isset($item['encodeLabel']) && $item['encodeLabel'] !== false))
 				$items[$i]['label'] = CHtml::encode($item['label']);
+
+			if (!isset($item['active']))
+				$items[$i]['active'] = $this->isItemActive($item, $route);
 		}
 
 		return array_values($items);

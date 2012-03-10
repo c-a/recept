@@ -40,7 +40,7 @@
         ?>
       <?php if (!empty($this->breadcrumbs)): ?>
         <?php
-        $this->widget('bootstrap.widgets.BootCrumb', array(
+        $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
             'homeLink' =>array('label' => 'Hem', 'url' => $this->createUrl('/site/index')),
             'links' => $this->breadcrumbs,
         ));
